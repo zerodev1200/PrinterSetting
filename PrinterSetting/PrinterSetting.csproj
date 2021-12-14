@@ -1,14 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;net5.0;net48;net47</TargetFrameworks>
-    <OutputType>Library</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <RegisterForComInterop>false</RegisterForComInterop>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net5.0;net48;net47</TargetFrameworks>
+		<OutputType>Library</OutputType>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<Authors>z</Authors>
+		<PackageProjectUrl>https://github.com/zerodev1200/PrinterSetting</PackageProjectUrl>
+		<Description>任意のプリンターの出力サイズ、向きを変更するライブラリ。</Description>
+		<PackageTags>Printer;Setting;Landscape;Portrait;DevMode;PageOrientation</PackageTags>
+		<PackageIcon>icon.png</PackageIcon>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<RegisterForComInterop>false</RegisterForComInterop>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0|AnyCPU'">
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\LICENSE" Pack="true" PackagePath="" />
+	</ItemGroup>
 </Project>
