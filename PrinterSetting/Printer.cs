@@ -24,7 +24,7 @@ internal class Printer
     [DllImport("winspool.Drv", CharSet = CharSet.Ansi, SetLastError = true)]
     private static extern bool SetPrinter(IntPtr hPrinter, int Level, IntPtr pPrinter, int Command);
 
-    internal static void SetPrinterSetting(string printerName, PrinterSetting printerSetting)
+    internal static void SetPrinterSetting(string printerName, PageSetting printerSetting)
     {
         IntPtr hPrinter = IntPtr.Zero;
         IntPtr yDevModeData = IntPtr.Zero;

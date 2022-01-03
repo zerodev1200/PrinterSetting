@@ -17,14 +17,13 @@ public class Setting : ISetting
     /// </summary>
     /// <param name="pageOrientation">印刷の向き</param>
     /// <param name="paperSize">出力用紙サイズ</param>
-    public bool SettingPage(PageOrientation pageOrientation, PaperSize paperSize = PaperSize.A4)
+    public void SetPage(PageOrientation pageOrientation, PaperSize paperSize = PaperSize.A4)
     {
-        var printerSetting = new PrinterSetting()
+        var pageSetting = new PageSetting()
         {
             Size = paperSize,
             Orientation = pageOrientation
         };
-        Printer.SetPrinterSetting(_printerName, printerSetting);
-        return true;
+        Printer.SetPrinterSetting(_printerName, pageSetting);
     }
 }
