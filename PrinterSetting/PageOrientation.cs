@@ -1,10 +1,9 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace PrinterSetting
+namespace PrinterSetting;
+
+public enum PageOrientation
 {
-    public enum PageOrientation
-    {
-        Portrait = 1,
-        Landscape = 2
-    }
+    Portrait = 1,
+    Landscape = 2
 }

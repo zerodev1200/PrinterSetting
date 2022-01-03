@@ -1,9 +1,8 @@
 ﻿
-namespace PrinterSetting
+namespace PrinterSetting;
+
+internal class PrinterSetting
 {
-    internal class PrinterSetting
-    {
-        public PaperSize Size { get; set; }
-        public PageOrientation Orientation { get; set; }
-    }
+    public PaperSize Size { get; set; }
+    public PageOrientation Orientation { get; set; }
 }

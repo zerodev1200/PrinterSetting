@@ -1,9 +1,8 @@
 ﻿
-namespace PrinterSetting
+namespace PrinterSetting;
+
+internal class PrinterConstant
 {
-    internal class PrinterConstant
-    {
-        public const int CCDEVICENAME = 32;
-        public const int CCFORMNAME = 32;
-    }
+    public const int CCDEVICENAME = 32;
+    public const int CCFORMNAME = 32;
 }
