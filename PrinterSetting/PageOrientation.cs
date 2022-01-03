@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace PrinterSetting;
+﻿namespace PrinterSetting;
 
 public enum PageOrientation
 {

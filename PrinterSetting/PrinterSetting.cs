@@ -1,5 +1,4 @@
-﻿
-namespace PrinterSetting;
+﻿namespace PrinterSetting;
 
 internal class PrinterSetting
 {
