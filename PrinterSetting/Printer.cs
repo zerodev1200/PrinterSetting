@@ -13,7 +13,7 @@ internal class Printer
     private static extern int DocumentProperties(IntPtr hwnd, IntPtr hPrinter, [MarshalAs(UnmanagedType.LPStr)] string pDeviceNameg, IntPtr pDevModeOutput, ref IntPtr pDevModeInput, int fMode);
 
     [DllImport("winspool.Drv", EntryPoint = "GetPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-    private static extern bool GetPrinter(IntPtr hPrinter, Int32 dwLevel, IntPtr pPrinter, Int32 dwBuf, out Int32 dwNeeded);
+    private static extern bool GetPrinter(IntPtr hPrinter, int dwLevel, IntPtr pPrinter, int dwBuf, out int dwNeeded);
 
     [DllImport("winspool.Drv", EntryPoint = "OpenPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
     private static extern bool OpenPrinter([MarshalAs(UnmanagedType.LPStr)] string szPrinter, out IntPtr hPrinter, ref PrinterDefaults pd);
@@ -32,7 +32,6 @@ internal class Printer
 
             dm.dmPaperSize = (short)printerSetting.Size;
             dm.dmOrientation = (short)printerSetting.Orientation;
-            //構造体からポインタに
             Marshal.StructureToPtr(dm, yDevModeData, true);
             pinfo.pDevMode = yDevModeData;
 
