@@ -6,9 +6,6 @@ namespace PrinterSetting;
 
 internal class Printer
 {
-    [DllImport("kernel32.dll", EntryPoint = "GetLastError", SetLastError = false, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-    private static extern int GetLastError();
-
     [DllImport("winspool.Drv", EntryPoint = "ClosePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
     private static extern bool ClosePrinter(IntPtr hPrinter);
 
@@ -40,14 +37,10 @@ internal class Printer
             pinfo.pDevMode = yDevModeData;
 
             Marshal.StructureToPtr(pinfo, printerInfo, true);
-            var lastError = Marshal.GetLastWin32Error();
             var result = SetPrinter(hPrinter, 9, printerInfo, 0);
             var nRet = Convert.ToInt16(result);
             if (nRet == 0)
-            {
-                lastError = Marshal.GetLastWin32Error();
                 throw new Win32Exception(Marshal.GetLastWin32Error());
-            }
         }
         finally
         {
@@ -62,7 +55,6 @@ internal class Printer
 
     private static DevMode GetPrinterSettings(string printerName, out IntPtr yDevModeData, out IntPtr pi, out IntPtr hPrinter, out PrinterDefaults printerValues, out PrinterInfo9 pinfo)
     {
-
         DevMode dm;
         const int DM_OUT_BUFFER = 2;
         //const int PRINTER_ACCESS_ADMINISTER = 0x4;
@@ -111,7 +103,7 @@ internal class Printer
             var intError = DocumentProperties(IntPtr.Zero, hPrinter, printerName, IntPtr.Zero, ref temp, 0);
             yDevModeData = Marshal.AllocCoTaskMem(intError);
 
-            DocumentProperties(IntPtr.Zero, hPrinter, printerName, yDevModeData, ref temp, 2);
+            _ = DocumentProperties(IntPtr.Zero, hPrinter, printerName, yDevModeData, ref temp, 2);
             dm = (DevMode)Marshal.PtrToStructure(yDevModeData, typeof(DevMode));
             if ((nRet == 0) || (hPrinter == IntPtr.Zero))
                 throw new Win32Exception(Marshal.GetLastWin32Error());
