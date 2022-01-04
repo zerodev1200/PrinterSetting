@@ -17,7 +17,7 @@ public class Setting : ISetting
     /// </summary>
     /// <param name="pageOrientation">印刷の向き</param>
     /// <param name="paperSize">出力用紙サイズ</param>
-    public void SetPage(PageOrientation pageOrientation, PaperSize paperSize = PaperSize.A4)
+    public void SetPageInfo(PageOrientation pageOrientation, PaperSize paperSize = PaperSize.A4)
     {
         var pageSetting = new PageSetting()
         {
