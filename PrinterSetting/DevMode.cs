@@ -3,13 +3,13 @@ using System.Runtime.InteropServices;
 
 namespace PrinterSetting;
 
-[StructLayout(LayoutKind.Sequential)]
+[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
 internal struct PrinterInfo9
 {
     public IntPtr pDevMode;
 }
 
-[StructLayout(LayoutKind.Sequential)]
+[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
 internal struct DevMode
 {
     [MarshalAs(UnmanagedType.ByValTStr, SizeConst = PrinterConstant.CCDEVICENAME)]

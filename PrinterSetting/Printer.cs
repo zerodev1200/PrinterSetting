@@ -6,19 +6,23 @@ namespace PrinterSetting;
 
 internal class Printer
 {
-    [DllImport("winspool.Drv", EntryPoint = "ClosePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+    [DllImport("winspool.Drv", EntryPoint = "OpenPrinterW", SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool OpenPrinter([MarshalAs(UnmanagedType.LPWStr)] string szPrinter, out IntPtr hPrinter, ref PrinterDefaults pd);
+
+    [DllImport("winspool.Drv", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool ClosePrinter(IntPtr hPrinter);
 
-    [DllImport("winspool.Drv", EntryPoint = "DocumentPropertiesA", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-    private static extern int DocumentProperties(IntPtr hwnd, IntPtr hPrinter, [MarshalAs(UnmanagedType.LPStr)] string pDeviceNameg, IntPtr pDevModeOutput, ref IntPtr pDevModeInput, int fMode);
+    [DllImport("winspool.Drv", EntryPoint = "DocumentPropertiesW", SetLastError = true, ExactSpelling = true)]
+    private static extern int DocumentProperties(IntPtr hwnd, IntPtr hPrinter, [MarshalAs(UnmanagedType.LPWStr)] string pDeviceName, IntPtr pDevModeOutput, ref IntPtr pDevModeInput, int fMode);
 
-    [DllImport("winspool.Drv", EntryPoint = "GetPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+    [DllImport("winspool.Drv", EntryPoint = "GetPrinterW", SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool GetPrinter(IntPtr hPrinter, int dwLevel, IntPtr pPrinter, int dwBuf, out int dwNeeded);
 
-    [DllImport("winspool.Drv", EntryPoint = "OpenPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-    private static extern bool OpenPrinter([MarshalAs(UnmanagedType.LPStr)] string szPrinter, out IntPtr hPrinter, ref PrinterDefaults pd);
-
-    [DllImport("winspool.Drv", CharSet = CharSet.Ansi, SetLastError = true)]
+    [DllImport("winspool.Drv", EntryPoint = "SetPrinterW", CharSet = CharSet.Unicode, SetLastError = true, ExactSpelling = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool SetPrinter(IntPtr hPrinter, int Level, IntPtr pPrinter, int Command);
 
     internal static void SetPrinterSetting(string printerName, PageSetting printerSetting)
@@ -37,8 +41,7 @@ internal class Printer
 
             Marshal.StructureToPtr(pinfo, printerInfo, true);
             var result = SetPrinter(hPrinter, 9, printerInfo, 0);
-            var nRet = Convert.ToInt16(result);
-            if (nRet == 0)
+            if (!result)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
         }
         finally
@@ -54,7 +57,6 @@ internal class Printer
 
     private static DevMode GetPrinterSettings(string printerName, out IntPtr yDevModeData, out IntPtr pi, out IntPtr hPrinter, out PrinterDefaults printerValues, out PrinterInfo9 pinfo)
     {
-        DevMode dm;
         const int DM_OUT_BUFFER = 2;
         //const int PRINTER_ACCESS_ADMINISTER = 0x4;
         const int PRINTER_ACCESS_USE = 0x8;
@@ -67,8 +69,8 @@ internal class Printer
             DesiredAccess = PRINTER_ACCESS_USE,
         };
 
-        var nRet = Convert.ToInt32(OpenPrinter(printerName, out hPrinter, ref printerValues));
-        if (nRet == 0)
+        var openPrinterResult = OpenPrinter(printerName, out hPrinter, ref printerValues);
+        if (!openPrinterResult)
             throw new Win32Exception(Marshal.GetLastWin32Error());
 
         GetPrinter(hPrinter, 2, IntPtr.Zero, 0, out int nBytesNeeded);
@@ -77,9 +79,8 @@ internal class Printer
         else
         {
             pi = Marshal.AllocCoTaskMem(nBytesNeeded);
-            var result = GetPrinter(hPrinter, 9, pi, nBytesNeeded, out _);
-            nRet = Convert.ToInt32(result);
-            if (nRet == 0)
+            var getPrinterResult = GetPrinter(hPrinter, 9, pi, nBytesNeeded, out _);
+            if (!getPrinterResult)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
 
             pinfo = (PrinterInfo9)Marshal.PtrToStructure(pi, typeof(PrinterInfo9));
@@ -103,11 +104,11 @@ internal class Printer
             yDevModeData = Marshal.AllocCoTaskMem(intError);
 
             _ = DocumentProperties(IntPtr.Zero, hPrinter, printerName, yDevModeData, ref temp, 2);
-            dm = (DevMode)Marshal.PtrToStructure(yDevModeData, typeof(DevMode));
-            if ((nRet == 0) || (hPrinter == IntPtr.Zero))
+            var devMode = (DevMode)Marshal.PtrToStructure(yDevModeData, typeof(DevMode));
+            if ((!getPrinterResult) || (hPrinter == IntPtr.Zero))
                 throw new Win32Exception(Marshal.GetLastWin32Error());
 
-            return dm;
+            return devMode;
         }
     }
 }
