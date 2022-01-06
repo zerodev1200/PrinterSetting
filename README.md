@@ -13,6 +13,14 @@ PM> Install-Package PrinterSetting
 ```
 ### Getting Started
 
+#### .NET5 Or Greater
+```
+[assembly: SupportedOSPlatform("windows")]  //Put it above the namespace.
+or
+[SupportedOSPlatform("windows")]  //Put it above the class or method.
+```
+
+
 ```
 var printer = new Printer("PrinterName");
 printer.SetPageInfo(PageOrientation.Portrait, PaperSize.A5);
