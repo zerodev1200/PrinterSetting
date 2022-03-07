@@ -24,7 +24,7 @@ foreach (var p in Extensions.EnumeratePrinterName())
     Console.WriteLine(p);
 }
 Console.WriteLine(Extensions.GetDefaultPrinterName());
-var result = Extensions.SetDefaultPrinter("CubePDF");
+var result = Extensions.SetDefaultPrinter("PrinterName");
 Console.WriteLine(Extensions.GetDefaultPrinterName());
 ```
 
