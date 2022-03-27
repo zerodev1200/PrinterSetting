@@ -4,18 +4,22 @@
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/zerodev1200/PrinterSetting/blob/master/LICENSE)  
 This is a library for changing the output size and orientation of printer.
 
+Ver2.2.0.0  
+-Changed target framework from 4.7 to 4.7.2  
+-Referenced packages changed and reorganized
+
 Ver2.1.0.0  
 -Changed Win32API from ANSI to UNICODE.  
--Added Extension for enumerating printers and setting/getting default printers.  
+-Added Extension for enumerating printers and setting/getting default printers.
+
 ### Install
 ```
 PM> Install-Package PrinterSetting
 ```
 ### Getting Started
 
-
-
 ```
+using PrinterSetting;
 var printer = new Printer("PrinterName");
 printer.SetPageInfo(PageOrientation.Portrait, PaperSize.A5);
 
