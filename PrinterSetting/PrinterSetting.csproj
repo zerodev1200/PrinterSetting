@@ -15,6 +15,7 @@ Library to change the output size and orientation of any printer.</Description>
 		<AssemblyVersion>2.2.1.0</AssemblyVersion>
 		<FileVersion>2.2.1.0</FileVersion>
 		<Version>2.2.1.0</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<RegisterForComInterop>false</RegisterForComInterop>
@@ -29,6 +30,10 @@ Library to change the output size and orientation of any printer.</Description>
 			<PackagePath>\</PackagePath>
 		</None>
 		<None Include="..\LICENSE" Pack="true" PackagePath="" />
+		<None Include="..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net5.0' ">
 		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
