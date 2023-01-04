@@ -26,11 +26,9 @@ public static class Extensions
     /// <returns></returns>
     public static IEnumerable<string> EnumeratePrinterName()
     {
-        using var mos = new ManagementObjectSearcher("Select * from Win32_Printer");
-        using var moc = mos.Get();
-        foreach (ManagementObject mo in moc)
+        foreach (var p in PrinterSettings.InstalledPrinters)
         {
-            yield return (string)mo["Name"];
+            yield return (string)p;
         }
     }
 
