@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing.Printing;
+using System.Linq;
 using System.Management;
 using System.Runtime.Versioning;
 
@@ -43,7 +44,7 @@ public static class Extensions
         using var mos = new ManagementObjectSearcher("Select * from Win32_Printer");
         using var moc = mos.Get();
 
-        foreach (ManagementObject mo in moc)
+        foreach (ManagementObject mo in moc.Cast<ManagementObject>())
         {
             if (((string)mo["Name"]) == printerName)
             {
