@@ -49,9 +49,7 @@ public static class Extensions
             if (((string)mo["Name"]) == printerName)
             {
                 ManagementBaseObject mbo = mo.InvokeMethod("SetDefaultPrinter", null, null);
-                if (((uint)mbo["returnValue"]) != 0)
-                    return false;
-                return true;
+                return ((uint)mbo["returnValue"]) == 0;
             }
         }
         return false;
