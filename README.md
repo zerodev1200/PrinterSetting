@@ -4,6 +4,9 @@
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/zerodev1200/PrinterSetting/blob/master/LICENSE)  
 This is a library for changing the output size and orientation of printer.
 
+Ver2.3.0.0  
+-Removed dependencies on System.Drawing.Common and System.Management. And Extensions methods now use Win32API.
+
 Ver2.2.1.0  
 -Removed .net5.0 from target framework 
 -Referenced packages changed and reorganized

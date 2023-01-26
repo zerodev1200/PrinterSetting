@@ -12,10 +12,11 @@ Library to change the output size and orientation of any printer.</Description>
 		<PackageIcon>icon.png</PackageIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<AssemblyVersion>2.2.1.0</AssemblyVersion>
-		<FileVersion>2.2.1.0</FileVersion>
-		<Version>2.2.1.0</Version>
+		<AssemblyVersion>2.3.0.0</AssemblyVersion>
+		<FileVersion>2.3.0.0</FileVersion>
+		<Version>2.3.0.0</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<TargetFramework>net6.0-windows</TargetFramework>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<RegisterForComInterop>false</RegisterForComInterop>
@@ -34,12 +35,5 @@ Library to change the output size and orientation of any printer.</Description>
 		  <Pack>True</Pack>
 		  <PackagePath>\</PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' Or '$(TargetFramework)' == 'net5.0' ">
-		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-		<PackageReference Include="System.Management" Version="7.0.0" />
-	</ItemGroup>
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
-		<PackageReference Include="System.Management" Version="4.7.0" />
 	</ItemGroup>
 </Project>
