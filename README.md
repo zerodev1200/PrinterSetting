@@ -24,7 +24,7 @@ Ver2.1.0.0
 
 ### Install
 ```
-PM> Install-Package PrinterSetting
+dotnet add package PrinterSetting
 ```
 ### Getting Started
 
